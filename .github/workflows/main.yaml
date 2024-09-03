@@ -30,9 +30,5 @@ jobs:
       - name: Test sources
         run: yarn test 
 
-      - uses: codecov/codecov-action@v2
-        with:
-          fail_ci_if_error: true
-
       - name: Checkout
         uses: actions/checkout@v2
