@@ -1,0 +1,38 @@
+name: "main"
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "14"
+
+      - name: Restore Node modules from caches
+        uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: v202101131145-${{ hashFiles('yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Test sources and collect coverage
+        run: yarn test --coverage
+
+      - uses: codecov/codecov-action@v2
+        with:
+          fail_ci_if_error: true
+
+      - name: Checkout
+        uses: actions/checkout@v2
