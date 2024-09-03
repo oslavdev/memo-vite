@@ -27,8 +27,8 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Test sources and collect coverage
-        run: yarn test --coverage
+      - name: Test sources
+        run: yarn test 
 
       - uses: codecov/codecov-action@v2
         with:
